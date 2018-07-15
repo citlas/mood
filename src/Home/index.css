@@ -1,0 +1,55 @@
+.month{
+    display: inline;
+    background-color: green;
+}
+
+.days {
+    color: lightgray;
+    }
+
+.container {
+    width: 90%;
+    margin: auto;
+    text-align: center;
+    }
+
+.months {
+    font-size: 150%;
+}
+
+.days {
+    font-size: 10%;
+}
+.cell {
+    border-style: solid;
+    border-width: 1px;
+   padding: 1%;
+    
+}
+
+#simple-board {
+    border-collapse: collapse;
+    width: 90%;
+    margin: auto;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.blue{
+    color: navy;
+}
+.red{
+    color: tomato;
+}
+.yellow{
+    color: gold;
+}
+.green{
+    color: darkgreen;
+}
+.grey{
+    color:darkgrey;
+}

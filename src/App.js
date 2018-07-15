@@ -1,19 +1,42 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import firebase from 'firebase';
 import './App.css';
+//importar todas los componentes
+import Home from './Home';
+import Register from './Register';
+import Login from './Login';
+import MyMood from './MyMood';
+import AddToday from './AddToday';
+import UpdateProfile from './UpdateProfile';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <Router>
+        <div className="App">
+        {/*<Header user={user} onLogout={this.logout}/>*/}
+          <h1>Mood of the world </h1>
+           
+          
+        
+          <Switch>
+            <Route path="/" exact component={Home}/>
+            <Route path="/signup" component={Register}/>
+            <Route path="/login" component={Login} />
+            <Route path="/my-mood/:user" component={MyMood} />
+            <Route path="/add-today/:user" component={AddToday}/>
+            <Route path="/update-profile/:user" component={UpdateProfile}/>
+            <Route path="*" component={Home}/>
+
+
+          </Switch>
+          <footer>
+            <p>this is my footer</p>
+          </footer>
+        </div>
+      </Router>
+      
     );
   }
 }
