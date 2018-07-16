@@ -48,7 +48,7 @@ class Home extends Component {
             key={cellID} 
             value='' 
             className='days cell' 
-            onClick='poner aqui cambio' 
+            //onClick= 
             show='true' 
             id={cellID}>
             {rowID}
@@ -56,7 +56,7 @@ class Home extends Component {
         }
       }
       rows.push(<tr key={i} id={rowID}>{cell}</tr>)
-      console.log(cell)
+      
     }
     
     return(

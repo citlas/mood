@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './index.css';
-//importar firebase
+import firebase from 'firebase';
 
 class Login extends Component {
   constructor(props){
@@ -13,7 +13,12 @@ class Login extends Component {
      emailError: false,
      loginError: ''
     }
+    this.db = firebase.auth();
     //hacer los bind
+    this.login = this.login.bind(this);
+    this.onChangeEmail = this.onChangeEmail.bind(this);
+    this.onChangePassword = this.onChangePassword.bind(this);
+   
   }
 
   //set states en las funciones
@@ -24,7 +29,51 @@ class Login extends Component {
     //createUserWithEmailAndPassword
   }
 
+  onChangeEmail(event){
+    this.setState({email: event.target.value})
+}
+
+onChangePassword(event){
+    this.setState({password: event.target.value})
+}
+
+login(e){
+      e.preventDefault();
+      let error = false;
+
+      if(this.state.email == ''){
+          this.setState({emailError: true});
+          error = true;
+      }
+
+      if(this.state.password == ''){
+          this.setState({passwordError: true});
+          error = true;
+      }
+      
+
+      if(!error){
+
+        this.db.signInWithEmailAndPassword(this.state.email, this.state.password).then((result)=>{
+            console.log(this.db.currentUser.uid)
+            this.props.history.push(`/my-mood/${this.db.currentUser.uid}`)
+            console.log('ok logeado')},(error)=> {
+            //var user = this.db.currentUser;
+            //console.log(user)
+            
+            
+            // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
+        console.log(errorMessage)
+      });
+    }
+  }
+
   render() {
+    const {emailError, loginError} = this.state;
+
     //Hacer un form y enviar datos a firebase
     return (
       <div>
@@ -36,20 +85,20 @@ class Login extends Component {
                         <input 
                             type="email" 
                             value={this.state.email} 
-                            onChange='cambiar por la funcion'
+                            onChange={this.onChangeEmail}
                         />
-                        {/*emailError && <span className="form-error">Campo obligatorio</span>*/}
+                        {emailError && <span className="form-error"><br/>Campo obligatorio</span>}
                     </div>
                     <div className="form-item">
                         <div className="form-item-label">Password: </div>
                         <input 
                             type="password" 
                             value={this.state.password} 
-                            onChange='cambiar por la funcion'
+                            onChange={this.onChangePassword}
                         />
                     </div>
                     <div>
-                        {/*loginError && <span>{loginError}</span>*/}
+                        {loginError && <span>{loginError}</span>}
                     </div>
                     <div className="form-item">
                         <button type="submit">Login</button>
