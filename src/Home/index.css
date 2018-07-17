@@ -8,7 +8,7 @@
     }
 
 .container {
-    width: 90%;
+    width: 99%;
     margin: auto;
     text-align: center;
     }
@@ -33,23 +33,4 @@
     margin: auto;
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
-}
 
-.blue{
-    color: navy;
-}
-.red{
-    color: tomato;
-}
-.yellow{
-    color: gold;
-}
-.green{
-    color: darkgreen;
-}
-.grey{
-    color:darkgrey;
-}

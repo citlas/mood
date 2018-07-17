@@ -9,13 +9,49 @@ import Login from './Login';
 import MyMood from './MyMood';
 import AddToday from './AddToday';
 import UpdateProfile from './UpdateProfile';
+import Header from './Header';
+
 
 class App extends Component {
+  constructor(props){
+    super(props);
+
+    this.state = {
+      user: null
+    }
+
+    this.logout = this.logout.bind(this);
+  }
+
+  componentDidMount(){
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        console.log('user: ', user);
+        const myUser = {
+          email: user.email
+        }
+
+        this.setState({user : myUser});
+      } else {
+        console.log("Bye bye");
+      }
+    });
+  }
+
+  logout(){
+    firebase.auth().signOut().then(() => {
+      this.setState({user: null});
+    }, (error) => {
+      console.log("ERROR logout");
+    });
+  }
+
   render() {
     return (
       <Router>
         <div className="App">
-        {/*<Header user={user} onLogout={this.logout}/>*/}
+        <Header onLogout={this.logout}/>
+
           <h1>Mood of the world </h1>
            
           

@@ -14,11 +14,11 @@
     }
 
 .months {
-    font-size: 150%;
+    font-size: 100%;
 }
 
 .days {
-    font-size: 10%;
+    font-size: 80%;
 }
 .cell {
     border-style: solid;
@@ -36,22 +36,33 @@
 ul {
     list-style-type: none;
     padding: 0;
+    
+}
+
+li {
+    color: white;
+    width: 40%;
+    margin: auto;
+    padding: 2%;
 }
 
 .blue{
-    color: navy;
+    background-color:rgb(52, 152, 219)    
 }
 .red{
-    color: tomato;
+    background-color: rgb(192, 57, 43);
 }
 .yellow{
-    color: gold;
+    background-color: rgb(241, 196, 15);
 }
 .green{
-    color: darkgreen;
+    background-color: rgb(39, 174, 96);
 }
 .grey{
-    color:darkgrey;
+    background-color:rgb(127, 140, 141);
+}
+.black{
+    background-color: black;
 }
 
 button {
