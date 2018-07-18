@@ -18,7 +18,8 @@ class Register extends Component {
      public: false,
      emailError: false,
      passwordError: false,
-     value: ''
+     value: '',
+     uid: ''
     }
 
     this.db = firebase.auth();
@@ -59,7 +60,25 @@ class Register extends Component {
 
       if(!error){
 
-        this.db.createUserWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
+        this.db.createUserWithEmailAndPassword(this.state.email, this.state.password).then((result)=>{
+            firebase.firestore().collection('Users').add({
+                email: this.state.email,
+                password: this.state.password,
+                country:this.state.country,
+                sex:this.state.sex,
+                age:this.state.age,
+                public: this.state.public,
+                uid:  this.db.currentUser.uid
+            })
+            .then(function(docRef) {
+                console.log("Document written with ID: ", docRef.id);
+            })
+            .catch(function(error) {
+                console.error("Error adding document: ", error);
+            });
+           
+            this.props.history.push(`/my-mood/${this.db.currentUser.uid}`)
+        },(error)=> {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -91,6 +110,8 @@ class Register extends Component {
     selectPublic(e){
         this.setState({public: e.target.value});
     }
+
+   
     
   render() {
     //Hacer un form y enviar datos a firebase

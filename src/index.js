@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import firebase from 'firebase';
+import 'font-awesome/css/font-awesome.min.css';
 
 
 const config = {

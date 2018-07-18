@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-//importar firebase
+import firebase from 'firebase';
 import './index.css';
 //import Button from '../Button';
 //import { withRouter } from 'react-router-dom'
@@ -13,14 +13,45 @@ class MyMood extends Component {
     super(props);
 
     this.state = {
-      colorValue: 0
-     
+      colorValue: 0,
+      uid: '',
+      date: '',
+      mood: '',
+      notas: '',
+      photo: '',
+      userId: '',//aqui va uid
+      valueTextarea: ''
     }
     //hacer los bind
     this.addMood = this.addMood.bind(this);
+    this.sendMood = this.sendMood.bind(this);
+    this.handleChangeTextarea = this.handleChangeTextarea.bind(this);
+  }
+
+  handleChangeTextarea(event) {
+    this.setState({valueTextarea: event.target.value});
+  }
+
+  sendMood(e){
+    this.setState({date: new Date().toLocaleTimeString()});
+   
+    this.setState({photo: 'aqui poner url?'});
+
+    firebase.firestore().collection('date').add({
+      colorValue: this.state.colorValue,
+      date: this.state.date,
+      mood: this.state.mood,
+      notas: this.state.valueTextarea,
+      //photo: this.state.photos,
+      userId: firebase.auth().currentUser.uid
+  })
+  { alert('hecho'); }
   }
 
   addMood(e){
+    e.preventDefault(); // <- prevent from reloading the page
+    
+
     var today = new Date()
     //console.log('mes empezando con cero ',today.getMonth())
     //console.log('dia ',today.getDate())
@@ -31,27 +62,33 @@ class MyMood extends Component {
     
     if (e.target.className === 'blue'){
       this.setState({colorValue: 4});
+      this.setState({mood: 'sad'});
       elem.style.backgroundColor = 'rgb(52, 152, 219)';
     
     } else if (e.target.className === 'red'){
       elem.style.backgroundColor = 'rgb(192, 57, 43)';
       this.setState({colorValue: 3});
+      this.setState({mood: 'angry'});
 
     } else if (e.target.className === 'yellow'){
       elem.style.backgroundColor = 'rgb(241, 196, 15)';
       this.setState({colorValue: 6});
+      this.setState({mood: 'happy'});
 
     } else if (e.target.className === 'green'){
       elem.style.backgroundColor = 'rgb(39, 174, 96)';
       this.setState({colorValue: 5});
+      this.setState({mood: 'calm'});
 
     } else if (e.target.className === 'black'){
       elem.style.backgroundColor = 'black';
       this.setState({colorValue: 2});
+      this.setState({mood: 'afraid'});
 
     } else if (e.target.className === 'grey'){
       elem.style.backgroundColor = 'rgb(127, 140, 141)';
       this.setState({colorValue: 1});
+      this.setState({mood: 'meh'});
     } 
   }
 
@@ -132,10 +169,10 @@ class MyMood extends Component {
             </select>
             <div id='addTodayNotes' className="notes addForm">Add notes: 
             </div>
-            <textarea rows='4'/>
+            <textarea valueTextarea={this.state.valueTextarea} onChange={this.handleChangeTextarea} rows='4'/>
         
         <div className='addMood'>
-          <button type="button">Add!</button>
+          <button onClick={this.sendMood} type="button">Add!</button>
         </div>
 
       </div>

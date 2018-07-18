@@ -10,7 +10,14 @@ import MyMood from './MyMood';
 import AddToday from './AddToday';
 import UpdateProfile from './UpdateProfile';
 import Header from './Header';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
 
+import { faStroopwafel } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faBars)
+library.add(faStroopwafel)
 
 class App extends Component {
   constructor(props){
@@ -47,10 +54,12 @@ class App extends Component {
   }
 
   render() {
+    const { user } = this.state;
+
     return (
       <Router>
         <div className="App">
-        <Header onLogout={this.logout}/>
+        <Header  user={user}  onLogout={this.logout}/>
 
           <h1>Mood of the world </h1>
            
