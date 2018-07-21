@@ -9,5 +9,12 @@ h1 {
   margin: auto;
   padding: 2%;
 }
+
+.dropzone {
+  width: 40%;
+  margin: auto;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
 @import url('https://fonts.googleapis.com/css?family=Amatic+SC');
 @import url('https://fonts.googleapis.com/css?family=Raleway:200');

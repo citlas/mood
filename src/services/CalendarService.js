@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+
 
 export default class CalendarService {
     static getColorByNumber(colorValue){
@@ -39,6 +39,21 @@ export default class CalendarService {
         return colorValue
       }
 
+      static  initDate(){
+        //hacer un objeto que tenga date y color value-- done
+        let oneYear = {}
+        const today = new Date
+        let d = new Date(today.getFullYear(),0,0)
+        let final = new Date(today.getFullYear(),11,31)
+        
+        
+        while (d.getTime() !== final.getTime()) {
+           var i = new Date (d.setDate(d.getDate()+1))
+          oneYear[i.toLocaleDateString()]=0
+        }
+        return oneYear
+        
+      }
 
 }
 

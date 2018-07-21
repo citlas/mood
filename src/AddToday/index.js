@@ -9,7 +9,8 @@ class AddToday extends Component {
     super(props);
 
     this.state = {
-      valueTextarea: ''
+      valueTextarea: '',
+      oneYearNotas: {}
     }
     this.addMood = this.addMood.bind(this);
     //this.getNumberByColor = this.getNumberByColor.bind(this);
@@ -25,7 +26,22 @@ class AddToday extends Component {
   componentDidMount() {
     console.log("componentDidMount START");
     //llamar a firebase
-   
+    const today = new Date()
+
+    firebase.firestore().collection('date').where("userId","==",this.props.userId)
+    .where("date","==",today.toLocaleDateString())
+    .get()
+    .then((querySnapshot)=> {//el arrow function es para que se cree un scope nuevo y el this siga siendo el de state
+      //para meter las notas anteriores
+        querySnapshot.forEach((doc)=> {
+            let noteToShow = `${doc.data().notas}`
+            console.log(noteToShow)
+            this.setState({valueTextarea: noteToShow});
+        });        
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });   
   }
   
 
@@ -50,13 +66,12 @@ class AddToday extends Component {
         
         date: today.toLocaleDateString(),
         notas: this.state.valueTextarea,
-        //photo: this.state.photos,
+       
         userId: firebase.auth().currentUser.uid
       }, { merge: true })
       .then(function() {
           console.log("Document successfully written!");
-          //aqui estoy buscando como encontrar las 
-          //notas anteriores para meterlas
+          
           console.log(firebase.firestore().collection("date").doc(querySnapshot.docs['0'].id).data().notas)
           { alert('Datos guardados ;)'); }
         })
@@ -69,24 +84,18 @@ class AddToday extends Component {
         notas: this.state.valueTextarea,
         //photo: this.state.photos,
         userId: firebase.auth().currentUser.uid
-    })
-    
+    }) 
     }    
-      
     })
     .catch(function(error) {
         console.log("Error getting documents: ", error);
     });
-
-
   }
 
   
 
   addMood(color,mood){
-    //e.preventDefault(); // <- prevent from reloading the page
-    
-   
+    //e.preventDefault(); // <- prevent from reloading the page 
     var today = new Date()
     //para las notas, revisar si hay ese día y si no crear lo mismo
 
@@ -112,9 +121,6 @@ class AddToday extends Component {
       .catch(function(error) {
           console.error("Error writing document: ", error);
       });
-
-
-
      } else {///si no poner un registro nuevo y añadir ese color
     
       firebase.firestore().collection('date').add({
@@ -122,27 +128,15 @@ class AddToday extends Component {
         date: today.toLocaleDateString(),
         mood: mood,
         userId: firebase.auth().currentUser.uid
-      })
-      
-    }
-      
-      
+      })   
+    }   
     })
     .catch(function(error) {
         console.log("Error getting documents: ", error);
     });
-   
   }
 
- 
-
-  render() {
-    //Mostrar fecha
-    //select mood
-    //añadir photo
-    //notas
-    //submit
-    
+  render() { 
     return (
       <div>
        <div className='listaMoods'>
@@ -157,13 +151,6 @@ class AddToday extends Component {
           </ul>
         </div>
         
-        <div className='addForm'>
-        Do you want to add a picture?
-        </div>
-            <select id='addTodayPic'>
-              <option value="true">Yes!</option>
-              <option value="false">No!</option>
-            </select>
             <div id='addTodayNotes' className="notes addForm">Add notes: 
             </div>
             <textarea value={this.state.valueTextarea} onChange={this.handleChangeTextarea} rows='4'/>

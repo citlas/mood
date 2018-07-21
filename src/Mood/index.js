@@ -24,9 +24,13 @@ class Mood extends Component {
       userId: '',//aqui va uid
       valueTextarea: '',
       cell: '',
-      allDates: [],
-      oneYear: this.initDate(),
-      color: ''
+      oneYear: CalendarService.initDate(),
+      color: '',
+      active: false,
+      mood2Show: '',
+      notas2Show: '',
+      picUrl: '',
+      cellID: ''
     }
     //const db = firebase.auth()
     //this.userIDFire = db.currentUser.uid;
@@ -34,8 +38,8 @@ class Mood extends Component {
     this.fbColDate = dbFirestore.collection('date');
     
  //hacer los bind
-    
-    this.initDate = this.initDate.bind(this);
+ this.showMessage = this.showMessage.bind(this);
+
     
     //this.getColorByNumber = this.getColorByNumber.bind(this);
   }
@@ -46,27 +50,10 @@ class Mood extends Component {
   //array con todos los dates
   //render pasarle a cada fecha sus datos
   
-  initDate(){
-    //hacer un objeto que tenga date y color value-- done
-    let oneYear = {}
-    const today = new Date
-    let d = new Date(today.getFullYear(),0,0)
-    let final = new Date(today.getFullYear(),11,31)
-    
-    
-    while (d.getTime() !== final.getTime()) {
-       var i = new Date (d.setDate(d.getDate()+1))
-      oneYear[i.toLocaleDateString()]=0
-    }
-    return oneYear
-    
-  }
+ 
 
   componentDidMount(){
    
-    var tempArray = []
-
-    //this.loadData()
     
     firebase.firestore().collection('date').where("userId","==",this.props.userId)
     .get()
@@ -77,6 +64,7 @@ class Mood extends Component {
             // doc.data() is never undefined for query doc snapshots
             let cellIDtoPaint = `${doc.data().date}`
             userOneYear[cellIDtoPaint]= doc.data().colorValue//esto me hace un objeto con el colorvalue de cada fecha          
+            this.setState({picUrl:doc.data().pictureUrl})
             //this.oneyear - la fecha que estamos calculando, asignamos como valor el numero que venga de firebase         
         });
 
@@ -89,7 +77,6 @@ class Mood extends Component {
     .catch(function(error) {
         console.log("Error getting documents: ", error);
     });
-    this.setState({allDates: tempArray})
     
    
   }
@@ -101,7 +88,35 @@ class Mood extends Component {
     }
   }
 
+showMessage(id){
+  console.log(id)
+    firebase.firestore().collection('date').where("userId","==",this.props.userId)
+    .where("date","==",id)
+    .get()
+    .then((querySnapshot)=> {//el arrow function es para que se cree un scope nuevo y el this siga siendo el de state
+      
+        querySnapshot.forEach((doc)=> {
+            let noteToShow = `${doc.data().notas}`
+            let moodToShow = `${doc.data().mood}`
+            //console.log(noteToShow)
+            this.setState({active: true});
+            this.setState({cellID: id});
+            this.setState({mood2Show: moodToShow});
+            this.setState({notas2Show: noteToShow});
+            //this.setState({picUrl: true});
 
+           console.log('show message')
+
+        //alert(`mood: ${moodToShow}, notes: ${noteToShow}, picture: `)
+        });
+         
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    }); 
+
+   
+}
 
   render() {
     //Mostrar los moods del año
@@ -148,6 +163,7 @@ class Mood extends Component {
           className= {className}
           show='true' 
           id={cellID}
+          onClick={ () => this.showMessage(cellID) }
           >
           {dia}
           </td>)
@@ -158,6 +174,8 @@ class Mood extends Component {
     }
     
     return(
+     
+                  
       
       <div className="container">
         <div className="row">
@@ -169,9 +187,18 @@ class Mood extends Component {
              </table>
           </div>
         </div>
-       
+        <div id='oldData' active={this.state.active}>
+      {this.state.active ? 
+        <div>
+          <p>{this.state.cellID}</p>
+          <p>Mood that day: {this.state.mood2Show}</p>
+          <p>Notes that day: {this.state.notas2Show}</p>
+          <img src={this.state.picUrl}/>
+        </div>
+        : null }
         
 
+      </div>
       </div>
     )
   }
