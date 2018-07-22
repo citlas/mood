@@ -8,6 +8,7 @@ const MyMood = function (props) {
   return (
     props.user ?
       <div>
+        <h2>My mood</h2>
         <Mood userId = {props.user.id}/> 
         <AddToday userId = {props.user.id} />
         <Basic userId = {props.user.id}/>

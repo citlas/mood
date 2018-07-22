@@ -75,13 +75,13 @@ class App extends Component {
             <Route path="/user-mood/:user" component={UserMood} />{/*va a poner match params user en userMood*/}
             <Route path="/my-mood/" render={(props)=><MyMood user={user}/>} />
             <Route path="/add-today/:user" component={AddToday}/>
-            <Route path="/update-profile/:user" component={UpdateProfile}/>
+            <Route path="/update-profile/:user" render={(props)=><UpdateProfile user={user}/>} />
             <Route path="*" component={Home}/>
 
 
           </Switch>
           <footer>
-            <p>this is my footer</p>
+            <a href="https://github.com/citlas/mood">Made by Citlas - go to github</a>
           </footer>
         </div>
       </Router>

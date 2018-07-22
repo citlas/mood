@@ -3,6 +3,7 @@ import './index.css';
 import firebase from 'firebase';
 //instale https://react.rocks/example/react-yearly-calendar y https://patientslikeme.github.io/react-calendar-heatmap/ pero no los usé
 import CalendarService from '../services/CalendarService';
+import Private from '../Private';
 
 class Home extends Component {
   constructor(props){
@@ -206,7 +207,7 @@ class Home extends Component {
           </ul>
         </div>
         <div className='filterBy'>
-          <p value="country">Country</p>
+          <p value="country">Filter by country</p>
           <select onChange={this.selectCountry}>
             <option value="choose">Choose one</option>
             <option value="Argentina">Argentina</option>
@@ -217,6 +218,7 @@ class Home extends Component {
         </div>
         <div className='otrosPublicos'>
           <p>aqui van otros calendarios publicos</p>
+          <Private />
         </div>
       </div>
       

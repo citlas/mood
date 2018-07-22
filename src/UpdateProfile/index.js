@@ -53,22 +53,53 @@ class UpdateProfile extends Component {
     if(this.state.email==''){
         this.setState({email: firebase.auth().currentUser.email})
     }
-    //update email in auth
+    //update email in auth OK!!!
     user.updateEmail(this.state.email).then(function() {
+        console.log('se guardo',this.state.email)
         // Update successful.
       }).catch(function(error) {
         // An error happened.
+        console.log(error)
       });
 
-      //update contrasea en auth
+      //update contrasea en auth OK!!!!
       var newPassword = this.state.password;
       user.updatePassword(newPassword).then(function() {
         // Update successful.
+        console.log('se guardo',newPassword)
         }).catch(function(error) {
         // An error happened.
+        console.log(error)
         });
 
+     //update en data de age, country, email, password, public, sex, uid
      
+     firebase.firestore().collection('Users')
+     .where("uid","==",this.props.user.id)
+     .get()
+     .then((querySnapshot)=> {
+      
+       firebase.firestore().collection("Users").doc(querySnapshot.docs['0'].id).set({
+         age:this.state.age,
+         country:this.state.country,
+         email:this.state.email,
+         password:this.state.password,
+         public:this.state.public,
+         sex:this.state.sex,
+
+       }, { merge: true })
+       .then(function() {
+           console.log("Document successfully written!");
+           { alert('Datos actualizados ;)'); }
+         })
+       .catch(function(error) {
+           console.error("Error writing document: ", error);
+       });
+        
+     })
+     .catch(function(error) {
+         console.log("Error getting documents: ", error);
+     });
   
   
 }
@@ -139,7 +170,7 @@ selectCountry(e){
                         </div>
                     <div className="form-item">
                         <div className="form-item-label">Sex: </div>
-                        <select>
+                        <select onChange={this.selectSex}>
                           <option value="choose">Choose one</option>
                           <option value="male">Male</option>
                           <option value="female">Female</option>
@@ -148,7 +179,7 @@ selectCountry(e){
                     </div>
                     <div className="form-item">
                         <div className="form-item-label">Age: </div>
-                        <select>
+                        <select onChange={this.selectAge}>
                           <option value="choose">Choose one</option>
                           <option value="<18">Less than 18</option>
                           <option value="19-25">19-25</option>
