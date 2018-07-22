@@ -39,10 +39,14 @@ export default class CalendarService {
         return colorValue
       }
 
+      static paintWhiteCells(){
+        return 'noColor'
+      }
+
       static  initDate(){
         //hacer un objeto que tenga date y color value-- done
         let oneYear = {}
-        const today = new Date
+        const today = new Date()
         let d = new Date(today.getFullYear(),0,0)
         let final = new Date(today.getFullYear(),11,31)
         

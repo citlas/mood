@@ -46,6 +46,9 @@ li {
     padding: 2%;
 }
 
+.noColor{
+    background-color: white;
+}
 .blue{
     background-color:rgb(52, 152, 219)    
 }
@@ -65,7 +68,8 @@ li {
     background-color: black;
 }
 
+
 button {
-    padding: 10%;
+    padding: 1%;
     font-size: 200%;
     }

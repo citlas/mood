@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import firebase from 'firebase';
 import './App.css';
 //importar todas los componentes
@@ -12,7 +12,7 @@ import AddToday from './AddToday';
 import UpdateProfile from './UpdateProfile';
 import Header from './Header';
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 
 import { faStroopwafel } from '@fortawesome/free-solid-svg-icons'

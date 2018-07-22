@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
 import './index.css';
-import AddToday from '../AddToday';
+//import AddToday from '../AddToday';
 import CalendarService from '../services/CalendarService';
 //import Button from '../Button';
 //import { withRouter } from 'react-router-dom'
@@ -139,7 +139,7 @@ showMessage(id){
     
     var thisYear = new Date()
 
-    for (var i = 1; i < 32; i++){//dia
+    for (i = 1; i < 32; i++){//dia
       let rowID = `${i}`
       let cell = [];
       for (var idx = 1; idx < 13; idx++){//mes
@@ -152,7 +152,7 @@ showMessage(id){
         let dia = ''
 
         const dateValue = this.state.oneYear[cellID]//estoy llamando al valor de ese dia
-        if (typeof dateValue != 'undefined'){
+        if (typeof dateValue !== 'undefined'){
           dia = i;
           className=`days cell ${CalendarService.getColorByNumber(dateValue)}`
         } 
@@ -193,7 +193,7 @@ showMessage(id){
           <p>{this.state.cellID}</p>
           <p>Mood that day: {this.state.mood2Show}</p>
           <p>Notes that day: {this.state.notas2Show}</p>
-          <img src={this.state.picUrl}/>
+          <img src={this.state.picUrl} alt='imagen del dia'/>
         </div>
         : null }
         

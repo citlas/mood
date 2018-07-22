@@ -18,3 +18,8 @@ h1 {
 }
 @import url('https://fonts.googleapis.com/css?family=Amatic+SC');
 @import url('https://fonts.googleapis.com/css?family=Raleway:200');
+
+.listaMoods, .addPicture{
+  text-align: center
+}
+

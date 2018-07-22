@@ -9,8 +9,12 @@ class Home extends Component {
     super(props);
 
     this.state = {
-      oneYear: CalendarService.initDate()
+      oneYear: CalendarService.initDate(),
+      country: '',
+      paintWhite: false 
     }
+
+    this.selectCountry = this.selectCountry.bind(this);
   }
 
   componentDidMount() {
@@ -53,6 +57,59 @@ class Home extends Component {
     });
   }
 
+  
+  selectCountry(e){
+    let targetCountry = e.target.value
+    this.setState({country: targetCountry});
+    console.log(targetCountry)
+
+    //this.state.paintWhite = true
+    
+
+    firebase.firestore().collection('date')
+    .where("country","==",targetCountry)
+    .get()//entran todos los datos
+    .then((querySnapshot)=> {//el arrow function es para que se cree un scope nuevo y el this siga siendo el de state
+      console.log('llamando firebase')
+      
+      
+      let allUsersOneYear = {} //recolectar fechas de firebase
+        querySnapshot.forEach((doc)=> {
+            
+            let cellIDtoPaint = `${doc.data().date}`
+          console.log(cellIDtoPaint)
+        
+            if (!allUsersOneYear[cellIDtoPaint]){
+              allUsersOneYear[cellIDtoPaint]={
+                total: doc.data().colorValue,
+                count: 1
+              }
+            } else {
+              allUsersOneYear[cellIDtoPaint].total += doc.data().colorValue
+              allUsersOneYear[cellIDtoPaint].count++
+            }
+        });
+
+        
+        let promedio = {}
+        for (var date in allUsersOneYear){
+          promedio[date] = (allUsersOneYear[date].total/allUsersOneYear[date].count).toFixed(0)  
+        }
+        //console.log(allUsersOneYear)
+        //console.log(promedio)
+        
+        let oneYearTemp = this.state.oneYear
+        oneYearTemp = Object.assign(oneYearTemp, promedio); 
+        console.log(oneYearTemp)
+        this.setState({oneYear:oneYearTemp})   
+        
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
+    
+    }
+
   render() {
 
     //header
@@ -82,7 +139,7 @@ class Home extends Component {
     
     var thisYear = new Date()
 
-    for (var i = 1; i < 32; i++){//dia
+    for ( var i = 1; i < 32; i++){//dia
       let rowID = `${i}`
       let cell = [];
       for (var idx = 1; idx < 13; idx++){//mes
@@ -97,7 +154,12 @@ class Home extends Component {
         const dateValue = this.state.oneYear[cellID]//estoy llamando al valor de ese dia
         if (typeof dateValue != 'undefined'){
           dia = i;
-          className=`days cell ${CalendarService.getColorByNumber(dateValue)}`
+          className=`
+                    days 
+                    cell 
+                    ${this.state.paintWhite ? CalendarService.paintWhiteCells() : ''}
+                    ${CalendarService.getColorByNumber(dateValue)}
+                  `
         } 
         
         cell.push(<td 
@@ -144,10 +206,13 @@ class Home extends Component {
           </ul>
         </div>
         <div className='filterBy'>
-          <select>
-            <option value="country">Country</option>
-            <option value="sex">Sex</option>
-            <option value="age">Age</option>
+          <p value="country">Country</p>
+          <select onChange={this.selectCountry}>
+            <option value="choose">Choose one</option>
+            <option value="Argentina">Argentina</option>
+            <option value="Mexico">Mexico</option>
+            <option value="Spain">Spain</option>
+            <option value="Venezuela">Venezuela</option>
           </select>
         </div>
         <div className='otrosPublicos'>

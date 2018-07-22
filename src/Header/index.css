@@ -58,3 +58,8 @@ header .icon {
       text-align: left;
     }
   }
+
+  header span{
+      color: white;
+      padding: 1%;
+  }

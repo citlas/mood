@@ -147,23 +147,20 @@ class Register extends Component {
                         />
                     </div>
                     <div className="form-item">
-        <div className="form-item-label">Country: </div>
-          <select onChange={this.selectCountry}>
-   
-            <option value="AR">Argentina</option>
-  
-            <option value="MX">Mexico</option>
-         
-            <option value="ES">Spain</option>
-            
-            <option value="VE">Venezuela</option>
-           
-          </select>
-        </div>
+                        <div className="form-item-label">Country: </div>
+                        <select onChange={this.selectCountry}>
+                            <option value="choose">Choose one</option>
+                            <option value="Argentina">Argentina</option>
+                            <option value="Mexico">Mexico</option>
+                            <option value="Spain">Spain</option>
+                            <option value="Venezuela">Venezuela</option>
+                        </select>
+                        </div>
 
                     <div className="form-item">
                         <div className="form-item-label">Sex: </div>
                         <select onChange={this.selectSex}>
+                          <option value="choose">Choose one</option>
                           <option value="male">Male</option>
                           <option value="female">Female</option>
                           <option value="other">Other</option>
@@ -172,6 +169,7 @@ class Register extends Component {
                     <div className="form-item">
                         <div className="form-item-label">Age: </div>
                         <select onChange={this.selectAge}>
+                        <option value="choose">Choose one</option>
                           <option value="<18">Less than 18</option>
                           <option value="19-25">19-25</option>
                           <option value="26-40">26-40</option>
@@ -183,7 +181,8 @@ class Register extends Component {
                     <div className="form-item">
                         <div className="form-item-label">Make it public? </div>
                         <select onChange={this.selectPublic}>
-                          <option value="true">Yes, share my chart!</option>
+                        <option value="choose">Choose one</option>
+                          <option value="true">Yes, share my moods!</option>
                           <option value="false">No, it is only for me!</option>
                         </select>
                     </div>

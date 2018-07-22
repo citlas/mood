@@ -35,7 +35,6 @@ class AddToday extends Component {
       //para meter las notas anteriores
         querySnapshot.forEach((doc)=> {
             let noteToShow = `${doc.data().notas}`
-            console.log(noteToShow)
             this.setState({valueTextarea: noteToShow});
         });        
     })
@@ -52,7 +51,19 @@ class AddToday extends Component {
 
   sendMood(e){
     const today = new Date()
-   
+    const userUID = firebase.auth().currentUser.uid
+    console.log(userUID)
+    let refCountry = ''
+    firebase.firestore().collection('Users')
+    .where("uid","==",userUID)
+    .get()//entran todos los datos
+    .then((querySnapshot)=> {
+        querySnapshot.forEach((doc)=> {
+          refCountry = doc.data().country
+          console.log(doc.data())
+        });  
+    })
+
     //para las notas, revisar si hay ese día y si no crear lo mismo
 
     firebase.firestore().collection('date')
@@ -66,7 +77,7 @@ class AddToday extends Component {
         
         date: today.toLocaleDateString(),
         notas: this.state.valueTextarea,
-       
+        country: refCountry,
         userId: firebase.auth().currentUser.uid
       }, { merge: true })
       .then(function() {
