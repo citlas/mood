@@ -8,6 +8,7 @@ import Register from './Register';
 import Login from './Login';
 import UserMood from './UserMood';
 import MyMood from './MyMood';
+import Mood from './Mood';
 import AddToday from './AddToday';
 import UpdateProfile from './UpdateProfile';
 import Header from './Header';
@@ -74,6 +75,8 @@ class App extends Component {
             <Route path="/login" component={Login} />
             <Route path="/user-mood/:user" component={UserMood} />{/*va a poner match params user en userMood*/}
             <Route path="/my-mood/" render={(props)=><MyMood user={user}/>} />
+            <Route path="/mood/:user" render={(props)=><Mood user={user}/>} />
+
             <Route path="/add-today/:user" component={AddToday}/>
             <Route path="/update-profile/:user" render={(props)=><UpdateProfile user={user}/>} />
             <Route path="*" component={Home}/>

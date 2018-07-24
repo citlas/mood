@@ -83,7 +83,7 @@ class AddToday extends Component {
       .then(function() {
           console.log("Document successfully written!");
           
-          console.log(firebase.firestore().collection("date").doc(querySnapshot.docs['0'].id).data().notas)
+         // console.log(firebase.firestore().collection("date").doc(querySnapshot.docs['0'].id).data().notas)
           { alert('Datos guardados ;)'); }
         })
       .catch(function(error) {
@@ -127,7 +127,7 @@ class AddToday extends Component {
         userId: firebase.auth().currentUser.uid
       }, { merge: true })
       .then(function() {
-          console.log("Document successfully written!");
+          console.log("Document successfully written! mood",mood);
       })
       .catch(function(error) {
           console.error("Error writing document: ", error);
@@ -145,6 +145,30 @@ class AddToday extends Component {
     .catch(function(error) {
         console.log("Error getting documents: ", error);
     });
+   
+    //intentando pintar en el momento
+    let cellID2 = today.toLocaleDateString()
+   console.log(cellID2)
+   var elem = document.getElementById(cellID2);
+        if (color === 'blue'){
+          elem.style.backgroundColor = 'rgb(52, 152, 219)';
+        
+        } else if (color === 'red'){
+          elem.style.backgroundColor = 'rgb(192, 57, 43)';
+    
+        } else if (color === 'yellow'){
+          elem.style.backgroundColor = 'rgb(241, 196, 15)';
+    
+        } else if (color === 'green'){
+          elem.style.backgroundColor = 'rgb(39, 174, 96)';
+    
+        } else if (color === 'black'){
+          elem.style.backgroundColor = 'black';
+    
+        } else if (color === 'grey'){
+          elem.style.backgroundColor = 'rgb(127, 140, 141)';
+        } 
+
   }
 
   render() { 

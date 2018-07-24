@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 //import './index.css';
 import firebase from 'firebase';
+import { Link } from 'react-router-dom';
 //instale https://react.rocks/example/react-yearly-calendar y https://patientslikeme.github.io/react-calendar-heatmap/ pero no los usé
 //import CalendarService from '../services/CalendarService';
 
@@ -10,23 +11,70 @@ class Private extends Component {
 
     this.state = {
       publicUserIds:[],
-      isPublicColor:0
+      isPublicColor:false,
+      //rowsToShow:''
+      userId:''
     }
-    this.publicUid=[]
+    this.publicUid=[],
+    this.rowsToShow=[]
 
     //this.selectCountry = this.selectCountry.bind(this);
   }
 
   componentDidMount() {
     console.log("componentDidMount START"); 
+    //let publicId = [];//prueba
+    let rowsPublicId = [];//prueba
+
     firebase.firestore().collection('Users')
     .where("public","==",'true')
     .get()
     .then((querySnapshot)=> {
      querySnapshot.forEach((doc)=> {
-       console.log(doc.data().uid)//estos son los uid de los que son publicos
-       this.state.publicUserIds.push(doc.data().uid)
-     
+       console.log('uid public true',doc.data().uid)//estos son los uid de los que son publicos
+      
+      this.state.publicUserIds.push(doc.data().uid)//aqui guarda ls uid de los public
+      console.log('array de public',this.state.publicUserIds)
+      rowsPublicId.push(<tr key={doc.data().uid} uid={doc.data().uid} id='publicId'>{doc.data().country}</tr>)//prueba
+      this.setState({isPublicColor:true}) 
+      console.log('rowsPublicId',rowsPublicId)
+      this.rowsToShow=rowsPublicId//prueba
+      /* 
+       //aqui quiero calcular de cada uid su promedio de color para mostrarlo con un color
+    for(var i = 0; i<2;i++){
+      let publicUserId=this.state.publicUserIds[i]
+      console.log('publicUserId ',publicUserId)
+      console.log('uids publicos',this.state.publicUserIds)
+     firebase.firestore().collection('date').where("userId","==",publicUserId)
+     .get()
+     .then((querySnapshot)=> {//el arrow function es para que se cree un scope nuevo y el this siga siendo el de state
+       let count = 0
+       let colorValueToSum = 0
+
+       querySnapshot.forEach((doc)=> {
+           colorValueToSum += doc.data().colorValue
+           count++
+          // publicId.push(doc.data().userId)//prueba
+           //console.log(publicId)//prueba
+           //rowsPublicId.push(<tr key={i} id={doc.data().userId}>{publicId}</tr>)//prueba
+
+       });
+       
+       let promedio = (colorValueToSum/count).toFixed(0)  
+       //console.log('colorValueToSum',colorValueToSum)
+       //console.log('count',count)
+       //console.log('promedio publico true',promedio)
+       this.setState({isPublicColor:promedio})   
+
+        
+      
+       //rowsPublicId.push(<tr key='0' >{publicId}</tr>)//prueba
+       //this.setState({rowsToShow:rowsPublicId})//prueba
+   })
+   .catch(function(error) {
+       console.log("Error getting documents: ", error);
+   });
+  }*/
      })
        
     })
@@ -34,30 +82,7 @@ class Private extends Component {
         console.log("Error getting documents: ", error);
     }); 
 
-    //aqui quiero calcular de cada uid su promedio de color
-    for(var i = 0; i<3;i++){
-      let publicUserId=this.state.publicUserIds[i]
-      console.log(publicUserId)
-     firebase.firestore().collection('date').where("userId","==",`e8NIe3WlEGbSTWqFLM6o9NAGwvr1`)
-     .get()
-     .then((querySnapshot)=> {//el arrow function es para que se cree un scope nuevo y el this siga siendo el de state
-       let count = 0
-       let colorValueToSum = 0
-       querySnapshot.forEach((doc)=> {
-           colorValueToSum += `${doc.data().colorValue}`
-           count++
-       });
-       
-       let promedio = colorValueToSum/count.toFixed(0)  
-       console.log('promedio',promedio)
-       this.setState({isPublicColor:promedio})   
-
-       
-   })
-   .catch(function(error) {
-       console.log("Error getting documents: ", error);
-   });
-  }
+ 
     }
 
   render() {
@@ -71,7 +96,20 @@ class Private extends Component {
 
     return(
       <div>
-        {this.state.isPublicColor ? <p>si hay y es {this.state.isPublicColor}</p> : <p>no hay</p>}
+        {this.state.isPublicColor ? <p>Sí que hay perfiles públicos y son de:</p> : <p>no hay</p>}
+        {//this.rowsToShow
+        }
+        {
+          //hay que agregar un link al mood del user
+          //a mood hay que pasarle el user uid
+        //<Mood userId = {props.user.id}/> 
+        //NO funcionaaaaaaaaaaaaaaaaa
+         <Link to={`/mood/${this.publicUid[0]}`}>{this.rowsToShow} </Link>//falla al pasarle el this.props.userId
+        //ej  <Link to="/beer/2">Go to beeeer</Link></h1>
+
+        }
+
+        
       </div> 
     )
   }

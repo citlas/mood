@@ -82,10 +82,10 @@ class Mood extends Component {
   }
 
   componentDidUpdate(prevProps, prevState){
-    if(prevProps.isFav !== this.props.isFav){
+    //if(prevProps.isFav !== this.props.isFav){
      // this.setState({isFav: this.props.isFav});
      console.log('component did update')
-    }
+    //}
   }
 
 showMessage(id){

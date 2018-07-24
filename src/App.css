@@ -27,3 +27,8 @@ footer{
   text-align: center;
   padding: 5%;
 }
+
+#publicId{
+  text-align: center;
+  display: block;
+}

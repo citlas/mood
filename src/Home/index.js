@@ -100,7 +100,7 @@ class Home extends Component {
         //console.log(promedio)
         
         let oneYearTemp = this.state.oneYear
-        oneYearTemp = Object.assign(oneYearTemp, promedio); 
+        oneYearTemp = Object.assign(CalendarService.initDate(), promedio); 
         console.log(oneYearTemp)
         this.setState({oneYear:oneYearTemp})   
         
@@ -158,7 +158,6 @@ class Home extends Component {
           className=`
                     days 
                     cell 
-                    ${this.state.paintWhite ? CalendarService.paintWhiteCells() : ''}
                     ${CalendarService.getColorByNumber(dateValue)}
                   `
         } 

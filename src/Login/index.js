@@ -67,6 +67,8 @@ login(e){
         var errorMessage = error.message;
         // ...
         console.log(errorMessage)
+        console.log(error.code)
+        this.setState({loginError:errorMessage})
       });
     }
   }
