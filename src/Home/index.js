@@ -176,7 +176,33 @@ class Home extends Component {
     }
     
     return(
+
+
       <div className="container">
+
+         <div className='listaMoods'>
+          <p>Key:</p>
+          <ul>
+            <li className='blue'>Sad</li>
+            <li className='red'>Angry</li>
+            <li className='yellow'>Happy</li>
+            <li className='green'>Calm</li>
+            <li className='black'>Afraid</li>
+            <li className='grey'>Meh</li>
+          </ul>
+        </div>
+
+         <div className='filterBy'>
+          <p value="country">Filter by country</p>
+          <select onChange={this.selectCountry}>
+            <option value="choose">Choose one</option>
+            <option value="Argentina">Argentina</option>
+            <option value="Mexico">Mexico</option>
+            <option value="Spain">Spain</option>
+            <option value="Venezuela">Venezuela</option>
+          </select>
+        </div>
+
         <div className="row">
           <div className="col s12 board">
             <table id="simple-board">
@@ -192,27 +218,8 @@ class Home extends Component {
       
 
       
-        <div className='listaMoods'>
-          <p>Key:</p>
-          <ul>
-            <li className='blue'>Blue - Sad</li>
-            <li className='red'>Red - Angry</li>
-            <li className='yellow'>Yellow - Happy</li>
-            <li className='green'>Green - Calm</li>
-            <li className='black'>Black - Afraid</li>
-            <li className='grey'>Grey - Meh</li>
-          </ul>
-        </div>
-        <div className='filterBy'>
-          <p value="country">Filter by country</p>
-          <select onChange={this.selectCountry}>
-            <option value="choose">Choose one</option>
-            <option value="Argentina">Argentina</option>
-            <option value="Mexico">Mexico</option>
-            <option value="Spain">Spain</option>
-            <option value="Venezuela">Venezuela</option>
-          </select>
-        </div>
+     
+       
         <div className='otrosPublicos'>
           <p>aqui van otros calendarios publicos</p>
           <Private />

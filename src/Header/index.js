@@ -19,8 +19,8 @@ const Header = function(props){
             {props.user && <Link onClick={props.onLogout} to="/">Logout</Link>}
             <div><FontAwesomeIcon className="icon" icon="bars" id="fa"/></div>
            
-
-            {props.user && (<span><span>{props.user.email}</span> </span>)}
+            <div>{props.user && (<span><span>{props.user.email}</span> </span>)}</div>
+            
         </header>
     );
 }

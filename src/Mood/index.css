@@ -41,31 +41,44 @@ ul {
 
 li {
     color: white;
-    width: 40%;
+    width: 10%;
     margin: auto;
     padding: 2%;
+    display: inline-block;
 }
 
 .noColor{
     background-color: white;
 }
 .blue{
-    background-color:rgb(52, 152, 219)    
+    background-color:rgb(52, 152, 219);   
+    color: white; 
+    
 }
 .red{
     background-color: rgb(192, 57, 43);
+    color: white; 
+    
 }
 .yellow{
     background-color: rgb(241, 196, 15);
+    color: white; 
+    
 }
 .green{
     background-color: rgb(39, 174, 96);
+    color: white; 
+    
 }
 .grey{
     background-color:rgb(127, 140, 141);
+    color: white; 
+    
 }
 .black{
     background-color: black;
+    color: white; 
+    
 }
 
 
