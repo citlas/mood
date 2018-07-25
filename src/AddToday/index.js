@@ -147,7 +147,7 @@ class AddToday extends Component {
     });
    
     //intentando pintar en el momento
-    let cellID2 = today.toLocaleDateString()
+    /*let cellID2 = today.toLocaleDateString()
    console.log(cellID2)
    var elem = document.getElementById(cellID2);
         if (color === 'blue'){
@@ -167,7 +167,7 @@ class AddToday extends Component {
     
         } else if (color === 'grey'){
           elem.style.backgroundColor = 'rgb(127, 140, 141)';
-        } 
+        } */
 
   }
 
@@ -191,7 +191,7 @@ class AddToday extends Component {
             <textarea value={this.state.valueTextarea} onChange={this.handleChangeTextarea} rows='4'/>
         
         <div className='addMood'>
-          <button onClick={this.sendMood} type="button">Add!</button>
+          <button onClick={this.sendMood} type="button">Add mood and notes!</button>
         </div>
       </div>
     );

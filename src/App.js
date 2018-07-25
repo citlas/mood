@@ -74,11 +74,11 @@ class App extends Component {
             <Route path="/signup" component={Register}/>
             <Route path="/login" component={Login} />
             <Route path="/user-mood/:user" component={UserMood} />{/*va a poner match params user en userMood*/}
-            <Route path="/my-mood/" render={(props)=><MyMood user={user}/>} />
-            <Route path="/mood/:user" render={(props)=><Mood user={user}/>} />
+            <Route path="/my-mood" render={(props)=><MyMood user={user}/>} />
+            <Route path="/mood/:user" render={(props)=><Mood userId={props.match.params.user}/>} />
 
-            <Route path="/add-today/:user" component={AddToday}/>
-            <Route path="/update-profile/:user" render={(props)=><UpdateProfile user={user}/>} />
+            <Route path="/add-today" component={AddToday}/>
+            <Route path="/update-profile" render={(props)=><UpdateProfile user={user}/>} />
             <Route path="*" component={Home}/>
 
 

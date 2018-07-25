@@ -54,11 +54,10 @@ class Mood extends Component {
 
   componentDidMount(){
    
-    
+    console.log(this.props.userId)
     firebase.firestore().collection('date').where("userId","==",this.props.userId)
-    .get()
-    .then((querySnapshot)=> {//el arrow function es para que se cree un scope nuevo y el this siga siendo el de state
-
+    .onSnapshot((querySnapshot)=> {//el arrow function es para que se cree un scope nuevo y el this siga siendo el de state
+    console.log(querySnapshot)
       let userOneYear = {} //recolectar fechas de firebase
         querySnapshot.forEach((doc)=> {
             // doc.data() is never undefined for query doc snapshots
@@ -74,9 +73,7 @@ class Mood extends Component {
         oneYearTemp = Object.assign(oneYearTemp, userOneYear); 
         this.setState({oneYear:oneYearTemp})   
     })
-    .catch(function(error) {
-        console.log("Error getting documents: ", error);
-    });
+    
     
    
   }

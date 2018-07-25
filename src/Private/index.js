@@ -26,19 +26,24 @@ class Private extends Component {
     //let publicId = [];//prueba
     let rowsPublicId = [];//prueba
 
+    let arrayUsers=[]
+
     firebase.firestore().collection('Users')
     .where("public","==",'true')
     .get()
     .then((querySnapshot)=> {
      querySnapshot.forEach((doc)=> {
        console.log('uid public true',doc.data().uid)//estos son los uid de los que son publicos
-      
-      this.state.publicUserIds.push(doc.data().uid)//aqui guarda ls uid de los public
+      arrayUsers.push(doc.data())
+      this.setState({publicUserIds:arrayUsers})
+
+/*      this.state.publicUserIds.push(doc.data().uid)//aqui guarda ls uid de los public
       console.log('array de public',this.state.publicUserIds)
       rowsPublicId.push(<tr key={doc.data().uid} uid={doc.data().uid} id='publicId'>{doc.data().country}</tr>)//prueba
       this.setState({isPublicColor:true}) 
       console.log('rowsPublicId',rowsPublicId)
-      this.rowsToShow=rowsPublicId//prueba
+      this.rowsToShow=rowsPublicId//prueba*/
+
       /* 
        //aqui quiero calcular de cada uid su promedio de color para mostrarlo con un color
     for(var i = 0; i<2;i++){
@@ -96,18 +101,16 @@ class Private extends Component {
 
     return(
       <div>
-        {this.state.isPublicColor ? <p>Sí que hay perfiles públicos y son de:</p> : <p>no hay</p>}
-        {//this.rowsToShow
-        }
+        
         {
-          //hay que agregar un link al mood del user
-          //a mood hay que pasarle el user uid
-        //<Mood userId = {props.user.id}/> 
-        //NO funcionaaaaaaaaaaaaaaaaa
-         <Link to={`/mood/${this.publicUid[0]}`}>{this.rowsToShow} </Link>//falla al pasarle el this.props.userId
-        //ej  <Link to="/beer/2">Go to beeeer</Link></h1>
+          this.state.publicUserIds.map((e)=>{
+            //div que ponga el name y 
+            return <Link to={`/mood/${e.uid}`}>ver perfil </Link>//falla al pasarle el this.props.userId
 
+          })
+          //hacer un map
         }
+        
 
         
       </div> 
