@@ -8,12 +8,10 @@ This project is the final project for the part time program in Skylab. It is des
 
 ## TECHNOLOGIES
 
------------cambiar esto-----------------------------------
-| Transversal | Server-side | Client-side | Testing |
-| :---------: |:-------: |:----------: |:---------: |
-| | Node.js | React |  |
-| javascript (ES5, ES6) | |  |  |
-| HTML |  firebase |  |  |
+React
+Node
+Javascript
+Firebase
 
 - Other:  Git & Github, Draw.io. 
 
@@ -69,6 +67,6 @@ Here we can see the properties used.
 ## PROJECT LINK
 
 
-You can see a demo of the project here: [surge](https://singing-lab.surge.sh/#/)
+You can see a demo of the project [here](https://moodproyecto.firebaseapp.com/)
 
 
