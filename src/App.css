@@ -1,38 +1,30 @@
+@import url("https://fonts.googleapis.com/css?family=Amatic+SC");
+@import url("https://fonts.googleapis.com/css?family=Raleway:200");
 * {
-  font-family: 'Raleway', sans-serif;
-
-}
+  font-family: 'Raleway', sans-serif; }
 
 h1, h2 {
   text-align: center;
   width: 100%;
   margin: auto;
-  padding: 2%;
-}
+  padding: 2%; }
 
 .dropzone {
-  width: 40%;
+  width: 20%;
   margin: auto;
   margin-top: 5%;
-  margin-bottom: 5%;
-}
-@import url('https://fonts.googleapis.com/css?family=Amatic+SC');
-@import url('https://fonts.googleapis.com/css?family=Raleway:200');
+  margin-bottom: 5%; }
 
-.listaMoods, .addPicture{
-  text-align: center
-}
+.listaMoods, .addPicture {
+  text-align: center; }
 
-footer{
+footer {
   text-align: center;
-  padding: 5%;
-}
+  padding: 5%; }
 
-#publicId{
+#publicId {
   text-align: center;
-  display: block;
-}
+  display: block; }
 
-.namePublicUsers{
-  margin: 20px;
-}
+.namePublicUsers {
+  margin: 20px; }

@@ -64,7 +64,7 @@ class Mood extends Component {
             let cellIDtoPaint = `${doc.data().date}`
             userOneYear[cellIDtoPaint]= doc.data().colorValue//esto me hace un objeto con el colorvalue de cada fecha          
             this.setState({picUrl:doc.data().pictureUrl})
-            console.log('pictureUrl',doc.data().pictureUrl)
+            //console.log('pictureUrl',doc.data().pictureUrl)
             //this.oneyear - la fecha que estamos calculando, asignamos como valor el numero que venga de firebase         
         });
 

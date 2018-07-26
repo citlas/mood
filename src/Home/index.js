@@ -12,7 +12,8 @@ class Home extends Component {
     this.state = {
       oneYear: CalendarService.initDate(),
       country: '',
-      paintWhite: false 
+      paintWhite: false,
+      alreadySelectedCountry: false 
     }
     this.loadData = this.loadData.bind(this);
     this.selectCountry = this.selectCountry.bind(this);
@@ -20,19 +21,42 @@ class Home extends Component {
 
   componentDidMount() {
     console.log("componentDidMount START");
-
+    //let selecCon = document.getElementById('selectingCountry')
+    //console.log('selected country',selecCon.value)
     this.loadData()
-    
     
   }
 
+  componentDidUpdate(prevProps){
+    console.log("componentDidUpdate START");
+    console.log('prevProps',prevProps, ' props', this.props)
+   // this.loadData(selecCon.val)
+   let selecCon = document.getElementById('selectingCountry')
+   console.log('country selected in comp did update',selecCon.value)
+   if (this.props.userID !== prevProps.userID) {
+    if(this.state.alreadySelectedCountry){
+      this.setState({alreadySelectedCountry: false})
+      if(selecCon.val != 'choose' ){
+        this.loadData(selecCon.val)
+      }
+     }
+   }
+  /**/
+   
+  }
+
   loadData(country,age,sexo){
-    //
+    console.log('country selected on load data',country)
+
     let db = firebase.firestore().collection('date')
-    // si viene country añadir when de country
-    console.log('loada data country', country)
+   
     if(country){
+      //yo creo que tendrás que hacer el filtro del where luego 
+      //de que firebase retorna los resultados porque no he encontrado 
+      //en ningún sitio el bug que teníamos con el onSnapshot
+
       db = db.where("country","==",country)
+      this.setState({alreadySelectedCountry: true})
     }
     db.onSnapshot((querySnapshot)=> {//el arrow function es para que se cree un scope nuevo y el this siga siendo el de state
      // console.log('llamando firebase', querySnapshot)
@@ -46,13 +70,8 @@ class Home extends Component {
             allUsersOneYear[cellIDtoPaint][doc.data().colorValue]++;
         });
 
-        
         let promedio = {}
-        let pruebaObj = {}
-        let objectMaxNum = {}//aqui voy a guardar el objeto con el value 
-        //con más repeticiones
-        //guardar todos los numeros de cada fecha en un obj 
-        //contar cual es el numero que tiene mas
+
        // console.log('allUsersOneYear',allUsersOneYear)
 
         for (var date in allUsersOneYear){
@@ -66,28 +85,15 @@ class Home extends Component {
               maxNum=allUsersOneYear[date][key]
               keyMax = key//aqui guardo el numero más grande 
             } 
-          //  console.log('key',keyMax, 'num',maxNum)
-            
-
+          //  console.log('key = ',keyMax, ', num=',maxNum)
           }
           allUsersOneYear[date]
           promedio[date]=keyMax
-          //objectMaxNum[date]=maxNum
-         // console.log('pruebaObj',pruebaObj)
          // console.log('maxNum son repeticiones', maxNum)
-         // console.log('objectMaxNum',objectMaxNum)
-          
-          //guardar el contador maximo y su key
-        //iterar por todos los keys del objeto 
-        //para ver cual tiene el numero mayor y quedarnos con esa key
-          //iterar sobre allUsersOneYear[date] y marcar un max y comparar si es mayor que 
-          //la anterior 
-          //promedio date es igual al key que tiene numero mayor
-        //  promedio[date] = (allUsersOneYear[date].total/allUsersOneYear[date].count).toFixed(0)  
+         
         }
         //console.log('allUsersOneYear',allUsersOneYear)
         //console.log(promedio)
-        //sustituir en el obj de oneyear las fechas que hay aqui
        
         let oneYearTemp = this.state.oneYear
         oneYearTemp = Object.assign(CalendarService.initDate(), promedio); 
@@ -101,7 +107,7 @@ class Home extends Component {
     
     let targetCountry = e.target.value
     this.setState({country: targetCountry});
-    console.log('targetCountry',targetCountry)
+    //console.log('targetCountry',targetCountry)
     
     //lamar a loaddata con country
     this.loadData(targetCountry)
@@ -188,9 +194,9 @@ class Home extends Component {
           <p>Key:</p>
           <ul>
             <li className='blue keyHome'>Sad</li>
-            <li className='red keyHome'>Angry</li>
-            <li className='yellow keyHome'>Happy</li>
             <li className='green keyHome' >Calm</li>
+            <li className='yellow keyHome'>Happy</li>
+            <li className='red keyHome'>Angry</li>
             <li className='black keyHome'>Afraid</li>
             <li className='grey keyHome'>Meh</li>
           </ul>
@@ -198,7 +204,7 @@ class Home extends Component {
 
          <div className='filterBy'>
           <p value="country">Filter by country</p>
-          <select onChange={this.selectCountry}>
+          <select id='selectingCountry' onChange={this.selectCountry}>
             <option value="choose">Show all!!</option>
             <option value="Argentina">Argentina</option>
             <option value="Mexico">Mexico</option>

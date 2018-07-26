@@ -1,0 +1,88 @@
+.month{
+    display: inline;
+    background-color: green;
+}
+
+.days {
+    color: lightgray;
+    }
+
+.container {
+    width: 90%;
+    margin: auto;
+    text-align: center;
+    }
+
+.months {
+    font-size: 100%;
+}
+
+.days {
+    font-size: 80%;
+}
+.cell {
+    border-style: solid;
+    border-width: 1px;
+   padding: 1%;
+    
+}
+
+#simple-board {
+    border-collapse: collapse;
+    width: 90%;
+    margin: auto;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    
+}
+
+li {
+    color: white;
+    width: 10%;
+    margin: auto;
+    padding: 2%;
+    display: inline-block;
+}
+
+.noColor{
+    background-color: white;
+}
+.blue{
+    background-color:rgb(52, 152, 219);   
+    color: white; 
+    
+}
+.red{
+    background-color: rgb(192, 57, 43);
+    color: white; 
+    
+}
+.yellow{
+    background-color: rgb(241, 196, 15);
+    color: white; 
+    
+}
+.green{
+    background-color: rgb(39, 174, 96);
+    color: white; 
+    
+}
+.grey{
+    background-color:rgb(127, 140, 141);
+    color: white; 
+    
+}
+.black{
+    background-color: black;
+    color: white; 
+    
+}
+
+
+button {
+    padding: 1%;
+    font-size: 200%;
+    }

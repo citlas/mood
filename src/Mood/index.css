@@ -1,88 +1,69 @@
-.month{
-    display: inline;
-    background-color: green;
-}
+.month {
+  display: inline;
+  background-color: green; }
 
 .days {
-    color: lightgray;
-    }
+  color: lightgray; }
 
 .container {
-    width: 90%;
-    margin: auto;
-    text-align: center;
-    }
+  width: 90%;
+  margin: auto;
+  text-align: center; }
 
 .months {
-    font-size: 100%;
-}
+  font-size: 100%; }
 
 .days {
-    font-size: 80%;
-}
+  font-size: 80%; }
+
 .cell {
-    border-style: solid;
-    border-width: 1px;
-   padding: 1%;
-    
-}
+  border-style: solid;
+  border-width: 1px;
+  padding: 1%; }
 
 #simple-board {
-    border-collapse: collapse;
-    width: 90%;
-    margin: auto;
-}
+  border-collapse: collapse;
+  width: 90%;
+  margin: auto; }
 
 ul {
-    list-style-type: none;
-    padding: 0;
-    
-}
+  list-style-type: none;
+  padding: 0; }
 
 li {
-    color: white;
-    width: 10%;
-    margin: auto;
-    padding: 2%;
-    display: inline-block;
-}
+  color: white;
+  width: 10%;
+  margin: auto;
+  padding: 2%;
+  display: inline-block; }
 
-.noColor{
-    background-color: white;
-}
-.blue{
-    background-color:rgb(52, 152, 219);   
-    color: white; 
-    
-}
-.red{
-    background-color: rgb(192, 57, 43);
-    color: white; 
-    
-}
-.yellow{
-    background-color: rgb(241, 196, 15);
-    color: white; 
-    
-}
-.green{
-    background-color: rgb(39, 174, 96);
-    color: white; 
-    
-}
-.grey{
-    background-color:rgb(127, 140, 141);
-    color: white; 
-    
-}
-.black{
-    background-color: black;
-    color: white; 
-    
-}
+.noColor {
+  background-color: white; }
 
+.blue {
+  background-color: #3498db;
+  color: white; }
+
+.red {
+  background-color: #c0392b;
+  color: white; }
+
+.yellow {
+  background-color: #f1c40f;
+  color: white; }
+
+.green {
+  background-color: #27ae60;
+  color: white; }
+
+.grey {
+  background-color: #7f8c8d;
+  color: white; }
+
+.black {
+  background-color: black;
+  color: white; }
 
 button {
-    padding: 1%;
-    font-size: 200%;
-    }
+  padding: 1%;
+  font-size: 200%; }

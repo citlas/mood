@@ -178,9 +178,9 @@ class AddToday extends Component {
           <p>How do you feel today!</p>
           <ul>
             <li onClick={()=>{this.addMood('blue','sad')}} className='blue'>Sad</li>
-            <li onClick={()=>{this.addMood('red','angry')}} className='red'>Angry</li>
-            <li onClick={()=>{this.addMood('yellow','happy')}} className='yellow'>Happy</li>
             <li onClick={()=>{this.addMood('green','calm')}} className='green'>Calm</li>
+            <li onClick={()=>{this.addMood('yellow','happy')}} className='yellow'>Happy</li>
+            <li onClick={()=>{this.addMood('red','angry')}} className='red'>Angry</li>
             <li onClick={()=>{this.addMood('black','afraid')}} className='black'>Afraid</li>
             <li onClick={()=>{this.addMood('grey','meh')}} className='grey'>Meh</li>
           </ul>
@@ -188,10 +188,11 @@ class AddToday extends Component {
         
             <div id='addTodayNotes' className="notes addForm">Add notes: 
             </div>
-            <textarea value={this.state.valueTextarea} onChange={this.handleChangeTextarea} rows='2'/>
         
         <div className='addMood'>
-          <button onClick={this.sendMood} type="button">Add mood and notes!</button>
+          <textarea value={this.state.valueTextarea} onChange={this.handleChangeTextarea} rows='2'/>
+
+          <button id='buttonAddNotes' onClick={this.sendMood} type="button">Add mood and notes!</button>
         </div>
       </div>
     );

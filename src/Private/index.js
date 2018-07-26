@@ -15,7 +15,7 @@ class Private extends Component {
       //rowsToShow:''
       userId:''
     }
-    this.publicUid=[],
+    this.publicUid=[]
     this.rowsToShow=[]
 
     //this.selectCountry = this.selectCountry.bind(this);
@@ -24,7 +24,7 @@ class Private extends Component {
   componentDidMount() {
     //console.log("componentDidMount START"); 
     //let publicId = [];//prueba
-    let rowsPublicId = [];//prueba
+    //let rowsPublicId = [];//prueba
 
     let arrayUsers=[]
 

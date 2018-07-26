@@ -1,0 +1,39 @@
+* {
+  font-family: 'Raleway', sans-serif;
+
+}
+
+h1, h2 {
+  text-align: center;
+  width: 100%;
+  margin: auto;
+  padding: 2%;
+}
+
+.dropzone {
+  width: 20%;
+  margin: auto;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC');
+@import url('https://fonts.googleapis.com/css?family=Raleway:200');
+
+.listaMoods, .addPicture{
+  text-align: center
+}
+
+footer{
+  text-align: center;
+  padding: 5%;
+}
+
+#publicId{
+  text-align: center;
+  display: block;
+}
+
+.namePublicUsers{
+  margin: 20px;
+}
+

@@ -1,0 +1,42 @@
+.month{
+    display: inline;
+    background-color: green;
+}
+
+.days {
+    color: lightgray;
+    }
+
+.container {
+    width: 99%;
+    margin: auto;
+    text-align: center;
+    }
+
+.months {
+    font-size: 150%;
+}
+
+.days {
+    font-size: 10%;
+}
+.cell {
+    border-style: solid;
+    border-width: 1px;
+   padding: 1%;
+    
+}
+
+#simple-board {
+    border-collapse: collapse;
+    width: 90%;
+    margin: auto;
+}
+
+.filterBy{
+    padding-bottom: 5%;
+}
+
+.keyHome{
+    font-size: .8em
+}
