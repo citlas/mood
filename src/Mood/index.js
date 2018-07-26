@@ -64,6 +64,7 @@ class Mood extends Component {
             let cellIDtoPaint = `${doc.data().date}`
             userOneYear[cellIDtoPaint]= doc.data().colorValue//esto me hace un objeto con el colorvalue de cada fecha          
             this.setState({picUrl:doc.data().pictureUrl})
+            console.log('pictureUrl',doc.data().pictureUrl)
             //this.oneyear - la fecha que estamos calculando, asignamos como valor el numero que venga de firebase         
         });
 
@@ -95,14 +96,16 @@ showMessage(id){
         querySnapshot.forEach((doc)=> {
             let noteToShow = `${doc.data().notas}`
             let moodToShow = `${doc.data().mood}`
+            let imageToShow = doc.data().pictureUrl
             //console.log(noteToShow)
             this.setState({active: true});
             this.setState({cellID: id});
             this.setState({mood2Show: moodToShow});
             this.setState({notas2Show: noteToShow});
-            //this.setState({picUrl: true});
+            this.setState({picUrl: imageToShow});
 
            console.log('show message')
+           console.log(this.state.picUrl)
 
         //alert(`mood: ${moodToShow}, notes: ${noteToShow}, picture: `)
         });
@@ -190,7 +193,7 @@ showMessage(id){
           <p>{this.state.cellID}</p>
           <p>Mood that day: {this.state.mood2Show}</p>
           <p>Notes that day: {this.state.notas2Show}</p>
-          <img src={this.state.picUrl} alt='imagen del dia'/>
+          {this.state.picUrl ? <img id='imageToShow' src={this.state.picUrl} alt='imagen del dia'/> : null }
         </div>
         : null }
         

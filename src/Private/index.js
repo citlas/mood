@@ -22,7 +22,7 @@ class Private extends Component {
   }
 
   componentDidMount() {
-    console.log("componentDidMount START"); 
+    //console.log("componentDidMount START"); 
     //let publicId = [];//prueba
     let rowsPublicId = [];//prueba
 
@@ -33,7 +33,7 @@ class Private extends Component {
     .get()
     .then((querySnapshot)=> {
      querySnapshot.forEach((doc)=> {
-       console.log('uid public true',doc.data().uid)//estos son los uid de los que son publicos
+       //console.log('uid public true',doc.data().uid)//estos son los uid de los que son publicos
       arrayUsers.push(doc.data())
       this.setState({publicUserIds:arrayUsers})
 
@@ -105,7 +105,7 @@ class Private extends Component {
         {
           this.state.publicUserIds.map((e)=>{
             //div que ponga el name y 
-            return <Link to={`/mood/${e.uid}`}>ver perfil </Link>//falla al pasarle el this.props.userId
+            return <Link className='namePublicUsers' to={`/mood/${e.uid}`}>{e.name}</Link>//falla al pasarle el this.props.userId
 
           })
           //hacer un map

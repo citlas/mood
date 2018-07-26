@@ -35,7 +35,7 @@ class Home extends Component {
       db = db.where("country","==",country)
     }
     db.onSnapshot((querySnapshot)=> {//el arrow function es para que se cree un scope nuevo y el this siga siendo el de state
-      console.log('llamando firebase', querySnapshot)
+     // console.log('llamando firebase', querySnapshot)
       let allUsersOneYear = {} //recolectar fechas de firebase
         querySnapshot.forEach((doc)=> {
             
@@ -53,29 +53,29 @@ class Home extends Component {
         //con más repeticiones
         //guardar todos los numeros de cada fecha en un obj 
         //contar cual es el numero que tiene mas
-        console.log('allUsersOneYear',allUsersOneYear)
+       // console.log('allUsersOneYear',allUsersOneYear)
 
         for (var date in allUsersOneYear){
-          console.log('allUsersOneYear[date]',allUsersOneYear[date])
-          console.log('date',date)
+         // console.log('allUsersOneYear[date]',allUsersOneYear[date])
+         // console.log('date',date)
           let maxNum = 0
           let keyMax = 0
           for (var key in allUsersOneYear[date]){
-          console.log(key,'date key',allUsersOneYear[date][key])
+         // console.log(key,'date key',allUsersOneYear[date][key])
             if(maxNum<allUsersOneYear[date][key]){
               maxNum=allUsersOneYear[date][key]
               keyMax = key//aqui guardo el numero más grande 
             } 
-            console.log('key',keyMax, 'num',maxNum)
+          //  console.log('key',keyMax, 'num',maxNum)
             
 
           }
           allUsersOneYear[date]
           promedio[date]=keyMax
           //objectMaxNum[date]=maxNum
-          console.log('pruebaObj',pruebaObj)
-          console.log('maxNum son repeticiones', maxNum)
-          console.log('objectMaxNum',objectMaxNum)
+         // console.log('pruebaObj',pruebaObj)
+         // console.log('maxNum son repeticiones', maxNum)
+         // console.log('objectMaxNum',objectMaxNum)
           
           //guardar el contador maximo y su key
         //iterar por todos los keys del objeto 
@@ -101,11 +101,15 @@ class Home extends Component {
     
     let targetCountry = e.target.value
     this.setState({country: targetCountry});
-    console.log(targetCountry)
+    console.log('targetCountry',targetCountry)
     
     //lamar a loaddata con country
     this.loadData(targetCountry)
  
+    if(targetCountry == 'choose'){
+      window.location.reload()
+
+    }
     
     }
 
@@ -183,19 +187,19 @@ class Home extends Component {
          <div className='listaMoods'>
           <p>Key:</p>
           <ul>
-            <li className='blue'>Sad</li>
-            <li className='red'>Angry</li>
-            <li className='yellow'>Happy</li>
-            <li className='green'>Calm</li>
-            <li className='black'>Afraid</li>
-            <li className='grey'>Meh</li>
+            <li className='blue keyHome'>Sad</li>
+            <li className='red keyHome'>Angry</li>
+            <li className='yellow keyHome'>Happy</li>
+            <li className='green keyHome' >Calm</li>
+            <li className='black keyHome'>Afraid</li>
+            <li className='grey keyHome'>Meh</li>
           </ul>
         </div>
 
          <div className='filterBy'>
           <p value="country">Filter by country</p>
           <select onChange={this.selectCountry}>
-            <option value="choose">Choose one</option>
+            <option value="choose">Show all!!</option>
             <option value="Argentina">Argentina</option>
             <option value="Mexico">Mexico</option>
             <option value="Spain">Spain</option>
@@ -213,15 +217,9 @@ class Home extends Component {
           </div>
         </div>
        
-        
-
-      
-
-      
-     
        
         <div className='otrosPublicos'>
-          <p>aqui van otros calendarios publicos</p>
+          <p>Estos usuarios tienen calendarios publicos:</p>
           <Private />
         </div>
       </div>

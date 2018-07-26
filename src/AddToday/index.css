@@ -9,7 +9,7 @@ select, textarea {
     border-style: solid;
     border-width: 1px;
     border-color: gray;
-    width: 80%;
+    width: 90%;
     margin: 10px;
     font-size: 150%;
 }

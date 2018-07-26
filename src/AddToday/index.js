@@ -175,20 +175,20 @@ class AddToday extends Component {
     return (
       <div>
        <div className='listaMoods'>
-          <p>Add today!</p>
+          <p>How do you feel today!</p>
           <ul>
-            <li onClick={()=>{this.addMood('blue','sad')}} className='blue'>Blue - Sad</li>
-            <li onClick={()=>{this.addMood('red','angry')}} className='red'>Red - Angry</li>
-            <li onClick={()=>{this.addMood('yellow','happy')}} className='yellow'>Yellow - Happy</li>
-            <li onClick={()=>{this.addMood('green','calm')}} className='green'>Green - Calm</li>
-            <li onClick={()=>{this.addMood('black','afraid')}} className='black'>Black - Afraid</li>
-            <li onClick={()=>{this.addMood('grey','meh')}} className='grey'>Grey - Meh</li>
+            <li onClick={()=>{this.addMood('blue','sad')}} className='blue'>Sad</li>
+            <li onClick={()=>{this.addMood('red','angry')}} className='red'>Angry</li>
+            <li onClick={()=>{this.addMood('yellow','happy')}} className='yellow'>Happy</li>
+            <li onClick={()=>{this.addMood('green','calm')}} className='green'>Calm</li>
+            <li onClick={()=>{this.addMood('black','afraid')}} className='black'>Afraid</li>
+            <li onClick={()=>{this.addMood('grey','meh')}} className='grey'>Meh</li>
           </ul>
         </div>
         
             <div id='addTodayNotes' className="notes addForm">Add notes: 
             </div>
-            <textarea value={this.state.valueTextarea} onChange={this.handleChangeTextarea} rows='4'/>
+            <textarea value={this.state.valueTextarea} onChange={this.handleChangeTextarea} rows='2'/>
         
         <div className='addMood'>
           <button onClick={this.sendMood} type="button">Add mood and notes!</button>

@@ -20,7 +20,8 @@ class Register extends Component {
      emailError: false,
      passwordError: false,
      value: '',
-     uid: ''
+     uid: '',
+     name: ''
     }
 
     this.db = firebase.auth();
@@ -33,6 +34,7 @@ class Register extends Component {
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
     this.onChangePasswordConfirm = this.onChangePasswordConfirm.bind(this);
+    this.onChangeName = this.onChangeName.bind(this);
 
 }
 
@@ -69,7 +71,8 @@ class Register extends Component {
                 sex:this.state.sex,
                 age:this.state.age,
                 public: this.state.public,
-                uid:  this.db.currentUser.uid
+                uid:  this.db.currentUser.uid,
+                name: this.state.name
             })
             .then(function(docRef) {
                 console.log("Document written with ID: ", docRef.id);
@@ -90,6 +93,10 @@ class Register extends Component {
 
   onChangeEmail(event){
     this.setState({email: event.target.value})
+    }
+
+    onChangeName(event){
+        this.setState({name: event.target.value})
     }
 
     onChangePassword(event){
@@ -144,6 +151,14 @@ class Register extends Component {
                             type="password" 
                             value={this.state.passwordConfirm} 
                             onChange={this.onChangePasswordConfirm}
+                        />
+                    </div>
+                    <div className="form-item">
+                        <div className="form-item-label">Name: </div>
+                        <input 
+                            type="text" 
+                            value={this.state.name} 
+                            onChange={this.onChangeName}
                         />
                     </div>
                     <div className="form-item">
