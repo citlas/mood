@@ -64,14 +64,14 @@ class Register extends Component {
       if(!error){
 
         this.db.createUserWithEmailAndPassword(this.state.email, this.state.password).then((result)=>{
-            firebase.firestore().collection('Users').add({
+            firebase.firestore().collection('Users').doc(result.user.uid).set({
                 email: this.state.email,
                 password: this.state.password,
                 country:this.state.country,
                 sex:this.state.sex,
                 age:this.state.age,
                 public: this.state.public,
-                uid:  this.db.currentUser.uid,
+                uid:  result.user.uid,
                 name: this.state.name
             })
             .then(function(docRef) {
@@ -81,7 +81,7 @@ class Register extends Component {
                 console.error("Error adding document: ", error);
             });
            
-            this.props.history.push(`/my-mood/${this.db.currentUser.uid}`)
+            this.props.history.push(`/my-mood/${result.user.uid}`)
         },(error)=> {
         // Handle Errors here.
         var errorCode = error.code;

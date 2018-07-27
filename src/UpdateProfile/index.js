@@ -44,11 +44,30 @@ class UpdateProfile extends Component {
        this.changeAge = this.changeAge.bind(this);
        this.changePublic = this.changePublic.bind(this);
        this.changeSex = this.changeSex.bind(this);
+       this.loadData = this.loadData.bind(this);
        //this.onChangePasswordConfirm = this.onChangePasswordConfirm.bind(this);
    
        this.userv = firebase.auth().currentUser
    }
 
+   componentDidMount(){
+    if(this.props.user) this.loadData();
+}
+
+loadData(){
+    firebase.firestore().collection('Users')
+    .doc(this.props.user.id)
+    .get()
+    .then((doc)=> {
+        const newState = Object.assign(this.state, doc.data()); 
+        console.log('busca newstate',newState)
+
+     this.setState(newState)
+      })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
+  }	
   componentDidUpdate(prevProps, prevState) {
    // console.log("componentDidUpdate START");
    // console.log('prev ',prevProps.user, 'this ',this.props.user)
@@ -206,7 +225,7 @@ selectCountry(e){
         <div className="update-form">
                 <form onSubmit={this.update}> 
                     <div className="form-item">
-                        <div className="form-item-label" onClick={this.changeEmail}>Click HERE to change Email: 
+                        <div className="form-item-label" onClick={this.changeEmail}>Change Email: 
                         </div>
                         {this.state.showEmail ? <input 
                             type="email" 
@@ -218,7 +237,7 @@ selectCountry(e){
                         {/*emailError && <span className="form-error">Campo obligatorio</span>*/}
                     </div>
                     <div className="form-item">
-                        <div className="form-item-label" onClick={this.changePassword}>Click to change Password: </div>
+                        <div className="form-item-label" onClick={this.changePassword}>Change Password: </div>
                         {this.state.showPassword ? <input 
                             type="password" 
                             value={this.state.password} 
@@ -230,7 +249,7 @@ selectCountry(e){
                     </div>
                  
                     <div className="form-item">
-                    <div className="form-item-label" onClick={this.changeCountry}>Click to change Country: </div>
+                    <div className="form-item-label" onClick={this.changeCountry}>Change Country: </div>
                     {this.state.showCountry ? <select value={this.state.country}  onChange={this.selectCountry}>
                             <option value="choose">Choose one</option>
                             <option value="Argentina">Argentina</option>
@@ -243,7 +262,7 @@ selectCountry(e){
                         
                         </div>
                     <div className="form-item">
-                        <div className="form-item-label" onClick={this.changeSex}>Click to change Sex: </div>
+                        <div className="form-item-label" onClick={this.changeSex}>Change Sex: </div>
                         {this.state.showSex ? <select value={this.state.sex}  onChange={this.selectSex}>
                           <option value="choose">Choose one</option>
                           <option value="male">Male</option>
@@ -255,7 +274,7 @@ selectCountry(e){
                         
                     </div>
                     <div className="form-item">
-                        <div className="form-item-label" onClick={this.changeAge}>Click to change Age: </div>
+                        <div className="form-item-label" onClick={this.changeAge}>Change Age: </div>
                         {this.state.showAge ? 
                         <select value={this.state.age} onChange={this.selectAge}>
                         <option value="choose">Choose one</option>
@@ -271,7 +290,7 @@ selectCountry(e){
                         
                     </div>
                     <div className="form-item">
-                        <div className="form-item-label" onClick={this.changePublic}>Click to change Make it public? </div>
+                        <div className="form-item-label" onClick={this.changePublic}>Change Make it public? </div>
                         {this.state.showPublic ? 
                          <select value={this.state.public} onChange={this.selectPublic}>
                          <option value="choose">Choose one</option>

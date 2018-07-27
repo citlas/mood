@@ -33,14 +33,14 @@ class Home extends Component {
    // this.loadData(selecCon.val)
    let selecCon = document.getElementById('selectingCountry')
    console.log('country selected in comp did update',selecCon.value)
-   if (this.props.userID !== prevProps.userID) {
+   /*if (this.props.user !== prevProps.user) {
     if(this.state.alreadySelectedCountry){
       this.setState({alreadySelectedCountry: false})
       if(selecCon.val != 'choose' ){
         this.loadData(selecCon.val)
       }
      }
-   }
+   }*/
   /**/
    
   }
@@ -54,6 +54,11 @@ class Home extends Component {
       //yo creo que tendrás que hacer el filtro del where luego 
       //de que firebase retorna los resultados porque no he encontrado 
       //en ningún sitio el bug que teníamos con el onSnapshot
+      //lo que deberías hacer es:
+      //1. Dejar el onsnapshot en componentDidUpdate. 
+      //Así siempre se ejecutará cuando cambie algún resultado.
+      //2. A penas lleguen los resultados filtrarlos con los filtros que tengas aplicados.
+      //3. Calcular el resto tal cual porque no necesitas cambiarlo, solo que los resultados iniciales serán diferentes 
 
       db = db.where("country","==",country)
       this.setState({alreadySelectedCountry: true})
@@ -61,39 +66,41 @@ class Home extends Component {
     db.onSnapshot((querySnapshot)=> {//el arrow function es para que se cree un scope nuevo y el this siga siendo el de state
      // console.log('llamando firebase', querySnapshot)
       let allUsersOneYear = {} //recolectar fechas de firebase
-        querySnapshot.forEach((doc)=> {
-            
+       /* querySnapshot.forEach((doc)=> {
             let cellIDtoPaint = `${doc.data().date}`
             if (!allUsersOneYear[cellIDtoPaint]){
               allUsersOneYear[cellIDtoPaint]={1:0, 2:0,3:0, 4:0, 5:0, 6:0};
             } 
             allUsersOneYear[cellIDtoPaint][doc.data().colorValue]++;
-        });
+        });*/
+        querySnapshot.forEach((doc)=> {
+          if(this.state.country && doc.data().country !== this.state.country){
+            return;
+          }
+          let cellIDtoPaint = `${doc.data().date}`
+          if (!allUsersOneYear[cellIDtoPaint]){
+            allUsersOneYear[cellIDtoPaint]={1:0, 2:0,3:0, 4:0, 5:0, 6:0};
+          } 
+          allUsersOneYear[cellIDtoPaint][doc.data().colorValue]++;
+      });
 
         let promedio = {}
 
-       // console.log('allUsersOneYear',allUsersOneYear)
 
         for (var date in allUsersOneYear){
-         // console.log('allUsersOneYear[date]',allUsersOneYear[date])
-         // console.log('date',date)
+        
           let maxNum = 0
           let keyMax = 0
           for (var key in allUsersOneYear[date]){
-         // console.log(key,'date key',allUsersOneYear[date][key])
             if(maxNum<allUsersOneYear[date][key]){
               maxNum=allUsersOneYear[date][key]
               keyMax = key//aqui guardo el numero más grande 
             } 
-          //  console.log('key = ',keyMax, ', num=',maxNum)
           }
           allUsersOneYear[date]
           promedio[date]=keyMax
-         // console.log('maxNum son repeticiones', maxNum)
          
         }
-        //console.log('allUsersOneYear',allUsersOneYear)
-        //console.log(promedio)
        
         let oneYearTemp = this.state.oneYear
         oneYearTemp = Object.assign(CalendarService.initDate(), promedio); 
@@ -107,28 +114,17 @@ class Home extends Component {
     
     let targetCountry = e.target.value
     this.setState({country: targetCountry});
-    //console.log('targetCountry',targetCountry)
     
     //lamar a loaddata con country
     this.loadData(targetCountry)
  
     if(targetCountry == 'choose'){
-      window.location.reload()
-
+      console.log( window.location.reload())
     }
     
     }
 
   render() {
-
-    //header
-    //titulo
-    //menu login register logout
-    //tabla con todos los cuadritos
-    //checar los moods de todos los usuarios por dia 
-    //y hacer una media
-    //buscar tablas por usuario
-    //mostrar tablas públicas
 
 
     //pegar la tabla y despues convertirlo en componente que pinte fechas
@@ -156,7 +152,7 @@ class Home extends Component {
         let cellID = `${i}/${idx}/${thisYear.getFullYear()}`//calcular para que sea 28/03/2018 en string
         //preguntar si object.cell id existe para dibjar y hacemos un push vacio
 
-        //sacar el valor
+       
         let className=`days cell`
         let dia = ''
 
